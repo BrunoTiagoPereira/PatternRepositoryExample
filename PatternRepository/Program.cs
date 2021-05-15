@@ -9,38 +9,38 @@ namespace PatternRepository
 {
     internal class Program
     {
-        private static IClienteService _clienteService;
+        private static ICustomerService _customerService;
         private static IKernel _container;
 
         public static void ResolveDependencies()
         {
             _container = new StandardKernel();
 
-            _container.Bind<IClienteRepository>().To<ClienteRepository>();
-            _container.Bind<IClienteService>().To<ClienteService>();
+            _container.Bind<ICustomerRepository>().To<CustomerRepository>();
+            _container.Bind<ICustomerService>().To<CustomerService>();
         }
 
         private static void Main(string[] args)
         {
             ResolveDependencies();
 
-            _clienteService = _container.Get<IClienteService>();
+            _customerService = _container.Get<ICustomerService>();
 
-            _clienteService.GetClientes();
+            _customerService.GetCustomers();
 
-            var clientes = _clienteService.GetClientes();
+            var customers = _customerService.GetCustomers();
 
-            //Id Existe
-            var clientById = _clienteService.GetClienteById(1);
+            //Id inválido - Simulação validação na camada de negócio
+            var clientById = _customerService.GetCustomerById(1);
 
-            //Id errado - Simulação validação na camada de negócio
-            var clientById2 = _clienteService.GetClienteById(2);
+            //Id válido
+            var clientById2 = _customerService.GetCustomerById(2);
 
-            var clientesInfo = clientes
-                .Select(cli => cli.Nome)
+            var customersInfo = customers
+                .Select(cli => cli.Name)
                 .Aggregate((a, b) => $"{a}{Environment.NewLine}{b}");
 
-            Console.WriteLine(clientesInfo);
+            Console.WriteLine(customersInfo);
             Console.ReadKey();
         }
     }
