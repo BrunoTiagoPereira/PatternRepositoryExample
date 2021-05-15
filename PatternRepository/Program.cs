@@ -31,10 +31,10 @@ namespace PatternRepository
             var customers = _customerService.GetCustomers();
 
             //Id inválido - Simulação validação na camada de negócio
-            var clientById = _customerService.GetCustomerById(1);
+            var customerById = _customerService.GetCustomerById(1);
 
             //Id válido
-            var clientById2 = _customerService.GetCustomerById(2);
+            var customerById2 = _customerService.GetCustomerById(2);
 
             var customersInfo = customers
                 .Select(cli => cli.Name)
